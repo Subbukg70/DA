@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 
 #1&2 dataset of 10 students in tabular format with the following details: Name, Marks in Math, Science, and English, Attendance (%)
-df = pd.read_csv("c:\dataanalytics\students.csv")
+df = pd.read_csv("Students.CSV")
 print("Dataset of 10 Students in tabular format:\n",df)
 
 #3 Average marks in each subject
@@ -60,4 +60,5 @@ plt.title('Bar Chart of Total MArks by Student')
 plt.xlabel('Student')
 plt.ylabel('Total Marks')
 plt.show()
+
 
