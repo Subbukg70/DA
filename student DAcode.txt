@@ -1,0 +1,63 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt 
+
+#1&2 dataset of 10 students in tabular format with the following details: Name, Marks in Math, Science, and English, Attendance (%)
+df = pd.read_csv("c:\dataanalytics\students.csv")
+print("Dataset of 10 Students in tabular format:\n",df)
+
+#3 Average marks in each subject
+sub_mean = df.mean()
+print("\nAverage Marks in each subject:\n",sub_mean)
+
+
+#7 New Column Total_marks = Maths + Science + English
+df['Total_marks'] = df[['MATHS','SCIENCE','ENGLISH']].sum(axis=1)
+print ("\nTotal Marks Scored by each Student:\n", df)
+
+#4 Student with the highest total marks 
+df['Total_marks'].max()
+high_marks=df['Total_marks'].max()
+
+student_row_with_max = df.loc[df['Total_marks'].idxmax()]
+name_of_student_max= student_row_with_max['NAME']
+print("\nName of Student with highest Total marks:")
+print(name_of_student_max, high_marks)
+
+#5 Mean, Median and StdDev
+maths_np = df['MATHS']
+mean_maths=np.mean(maths_np)
+median_maths=np.median(maths_np)
+sd_maths=np.std(maths_np)
+print("\nStats calculation:\n")
+print(f"Mean of Maths scores: {mean_maths}")
+print(f"Median of Maths scores: {median_maths}")
+print(f"Std Dev of Maths scores: {sd_maths}")
+
+#6 Pass/fail status for each student
+df['PassStatus'] = 'Pass'
+x=40
+
+# Tag rows where any of the three columns match 'x'
+df.loc[(df['MATHS'] < x) | (df['SCIENCE'] < x) | (df['ENGLISH'] < x), 'PassStatus'] = 'Fail'
+
+print("\nPass/ Fail Status of each student\n",df)
+
+#8 Students who have scored more than 200 in total
+marks_200 = df[df['Total_marks']>200]
+print(f"\nStudents who have scored more than 200 in total:\n {marks_200}")
+
+#9 Average Attendance and Students with <75% attendance
+print("\nAverage Attendance: ",df['ATTENDANCE%'].mean())
+attend_75 = df[df['ATTENDANCE%']<75]
+print("\nStudents with < 75% attendance:\n", attend_75[['NAME','ATTENDANCE%']])
+
+
+#10 Bar chart of students vs total marks
+# Using the Student as x-axis and Total_marks as y-axis
+df.plot(x='NAME', y='Total_marks', kind='bar')
+plt.title('Bar Chart of Total MArks by Student')
+plt.xlabel('Student')
+plt.ylabel('Total Marks')
+plt.show()
+
